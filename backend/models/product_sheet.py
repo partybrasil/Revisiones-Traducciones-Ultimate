@@ -182,6 +182,10 @@ class ProductVersion(Base):
     snapshot_date = Column(DateTime, default=datetime.utcnow, nullable=False)
     created_by = Column(String(100))
     change_summary = Column(Text)
+    # NOTE: Generic JSON type is used for SQLite compatibility.
+    # PostgreSQL's JSONB provides better performance with indexing and efficient querying.
+    # For production deployments with complex JSON queries, consider using PostgreSQL.
+    # SQLite's JSON support is less feature-rich and may impact query performance.
     complete_snapshot = Column(JSON, nullable=False)  # Complete state of product at this version
     
     __table_args__ = (
@@ -276,6 +280,11 @@ class Preset(Base):
     
     __tablename__ = "presets"
     
+    # WARNING: If upgrading from a previous version where preset_id used UUID(as_uuid=True),
+    # you MUST run a database migration to convert the column type from UUID to String(36).
+    # For PostgreSQL: ALTER TABLE presets ALTER COLUMN preset_id TYPE VARCHAR(36);
+    # For SQLite: requires table recreation. See Alembic migration documentation.
+    # Failing to migrate will result in runtime errors or data corruption.
     preset_id = Column(String(36), primary_key=True, default=generate_uuid)
     family = Column(String(100), unique=True, nullable=False)
     display_name = Column(String(200))

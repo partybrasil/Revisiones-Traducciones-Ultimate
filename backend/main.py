@@ -7,8 +7,9 @@ import os
 import sys
 
 # Add parent directory to path if running from backend directory
-if __name__ == "__main__" or "backend" not in sys.modules:
-    from pathlib import Path
+# This allows running the backend standalone from within the backend/ folder
+from pathlib import Path
+if Path(__file__).parent.name == "backend":
     parent_dir = Path(__file__).parent.parent
     if str(parent_dir) not in sys.path:
         sys.path.insert(0, str(parent_dir))

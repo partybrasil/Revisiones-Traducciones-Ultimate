@@ -69,12 +69,16 @@ def check_frontend_setup():
         print(f"{Color.YELLOW}⚠ Dependencias del frontend no instaladas{Color.END}")
         print(f"{Color.BLUE}📦 Instalando dependencias del frontend...{Color.END}")
         
-        result = subprocess.run(
-            ["npm", "install"],
-            cwd=frontend_dir,
-            capture_output=True,
-            text=True
-        )
+        try:
+            result = subprocess.run(
+                ["npm", "install"],
+                cwd=frontend_dir,
+                capture_output=True,
+                text=True
+            )
+        except FileNotFoundError:
+            print(f"{Color.RED}❌ No se encontró 'npm'. Por favor instala Node.js y npm y asegúrate de que estén en tu PATH.{Color.END}")
+            return False
         
         if result.returncode != 0:
             print(f"{Color.RED}❌ Error instalando dependencias del frontend{Color.END}")
@@ -96,6 +100,7 @@ def check_and_init_database():
         from backend.config import settings
         from backend.database import engine, Base
         from sqlalchemy import text, inspect
+        from sqlalchemy.engine import make_url
         import os
         
         # Check if it's SQLite and if the file exists
@@ -103,17 +108,28 @@ def check_and_init_database():
         is_sqlite = db_url.startswith("sqlite")
         
         if is_sqlite:
-            # Extract database file path from URL
-            db_file = db_url.replace("sqlite:///", "").replace("sqlite://", "")
-            # Make path absolute if relative
-            if not os.path.isabs(db_file):
-                db_file = os.path.join(os.getcwd(), db_file)
+            # Extract database file path from URL using SQLAlchemy's URL parser
+            parsed_url = make_url(db_url)
+            db_file = parsed_url.database
             
-            db_exists = os.path.exists(db_file)
-            
-            if not db_exists:
-                print(f"{Color.YELLOW}⚠ Base de datos no existe: {db_file}{Color.END}")
-                print(f"{Color.BLUE}📦 Creando nueva base de datos...{Color.END}")
+            # Validate db_file is not empty or invalid
+            if not db_file or db_file == ":memory:":
+                if db_file == ":memory:":
+                    print(f"{Color.GREEN}✓ Usando base de datos SQLite en memoria{Color.END}")
+                    db_exists = True
+                else:
+                    print(f"{Color.RED}❌ URL de base de datos SQLite inválida: {db_url}{Color.END}")
+                    return False
+            else:
+                # Make path absolute if relative
+                if not os.path.isabs(db_file):
+                    db_file = os.path.join(os.getcwd(), db_file)
+                
+                db_exists = os.path.exists(db_file)
+                
+                if not db_exists:
+                    print(f"{Color.YELLOW}⚠ Base de datos no existe: {db_file}{Color.END}")
+                    print(f"{Color.BLUE}📦 Creando nueva base de datos...{Color.END}")
         
         # Try to connect and check if tables exist
         try:
@@ -133,15 +149,20 @@ def check_and_init_database():
                     Base.metadata.create_all(bind=engine)
                     print(f"{Color.GREEN}✓ Tablas de base de datos creadas{Color.END}")
                     
-                    # Ask if user wants to load sample data
-                    print(f"\n{Color.YELLOW}¿Deseas cargar datos de ejemplo? (s/n): {Color.END}", end="")
-                    try:
-                        response = input().strip().lower()
-                        if response in ['s', 'si', 'sí', 'y', 'yes']:
-                            print(f"{Color.BLUE}📦 Cargando datos de ejemplo...{Color.END}")
-                            load_sample_data()
-                    except (EOFError, KeyboardInterrupt):
-                        print(f"\n{Color.YELLOW}Saltando carga de datos de ejemplo{Color.END}")
+                    # Check if running in interactive environment
+                    import sys
+                    if sys.stdin.isatty():
+                        # Ask if user wants to load sample data
+                        print(f"\n{Color.YELLOW}¿Deseas cargar datos de ejemplo? (s/n): {Color.END}", end="")
+                        try:
+                            response = input().strip().lower()
+                            if response in ['s', 'si', 'sí', 'y', 'yes']:
+                                print(f"{Color.BLUE}📦 Cargando datos de ejemplo...{Color.END}")
+                                load_sample_data()
+                        except (EOFError, KeyboardInterrupt):
+                            print(f"\n{Color.YELLOW}Saltando carga de datos de ejemplo{Color.END}")
+                    else:
+                        print(f"{Color.YELLOW}⚠ Entorno no interactivo detectado. Usa --load-sample-data para cargar datos de ejemplo.{Color.END}")
                 else:
                     print(f"{Color.GREEN}✓ Base de datos encontrada con {len(tables)} tablas{Color.END}")
                 
@@ -172,41 +193,51 @@ def load_sample_data():
         
         db = SessionLocal()
         
-        # Create a few sample products
-        sample_products = [
-            ProductSheet(
-                sku="DEMO-001",
-                ean_list=["1234567890123"],
-                brand="Demo Brand",
-                family="COSMETICS_FACIAL",
-                title_short={
-                    "es": "Crema Hidratante Demo",
-                    "pt": "Creme Hidratante Demo",
-                    "it": "Crema Idratante Demo",
-                },
-                description_detailed={
-                    "es": "Producto de demostración para probar el sistema",
-                    "pt": "Produto de demonstração para testar o sistema",
-                    "it": "Prodotto dimostrativo per testare il sistema",
-                },
-                net_weight_value=50,
-                net_weight_unit="ml",
-                current_version="1.0",
-                status="draft",
-                created_by="system",
-                updated_by="system"
-            )
-        ]
+        try:
+            # Create a few sample products
+            sample_products = [
+                ProductSheet(
+                    sku="DEMO-001",
+                    ean_list=["1234567890123"],
+                    brand="Demo Brand",
+                    family="COSMETICS_FACIAL",
+                    title_short={
+                        "es": "Crema Hidratante Demo",
+                        "pt": "Creme Hidratante Demo",
+                        "it": "Crema Idratante Demo",
+                    },
+                    description_detailed={
+                        "es": "Producto de demostración para probar el sistema",
+                        "pt": "Produto de demonstração para testar o sistema",
+                        "it": "Prodotto dimostrativo per testare il sistema",
+                    },
+                    net_weight_value=50,
+                    net_weight_unit="ml",
+                    current_version="1.0",
+                    status="draft",
+                    created_by="system",
+                    updated_by="system"
+                )
+            ]
+            
+            created_skus = []
+            for product in sample_products:
+                existing = db.query(ProductSheet).filter(ProductSheet.sku == product.sku).first()
+                if not existing:
+                    db.add(product)
+                    created_skus.append(product.sku)
+            
+            db.commit()
+            
+            # Print success messages only after successful commit
+            for sku in created_skus:
+                print(f"  ✓ Producto demo creado: {sku}")
+            
+            print(f"{Color.GREEN}✓ Datos de ejemplo cargados{Color.END}")
         
-        for product in sample_products:
-            existing = db.query(ProductSheet).filter(ProductSheet.sku == product.sku).first()
-            if not existing:
-                db.add(product)
-                print(f"  ✓ Producto demo creado: {product.sku}")
-        
-        db.commit()
-        db.close()
-        print(f"{Color.GREEN}✓ Datos de ejemplo cargados{Color.END}")
+        finally:
+            # Always close the database session
+            db.close()
         
     except Exception as e:
         print(f"{Color.YELLOW}⚠ No se pudieron cargar datos de ejemplo: {e}{Color.END}")
@@ -275,6 +306,7 @@ def start_both():
     """Start both backend and frontend servers in parallel using multiprocessing."""
     import multiprocessing
     import time
+    import requests
     
     print(f"\n{Color.BOLD}🚀 Iniciando Backend + Frontend...{Color.END}")
     
@@ -295,17 +327,42 @@ def start_both():
             "--port", "8000",
             "--reload"
         ]
-        subprocess.run(cmd, cwd=backend_dir)
+        try:
+            subprocess.run(cmd, cwd=backend_dir)
+        except FileNotFoundError as e:
+            print(f"{Color.RED}❌ Error: No se encontró 'uvicorn'. Asegúrate de que las dependencias estén instaladas.{Color.END}")
+            print(f"{Color.YELLOW}Ejecuta: pip install -r backend/requirements.txt{Color.END}")
+        except Exception as e:
+            print(f"{Color.RED}❌ Error ejecutando backend: {e}{Color.END}")
     
     def run_frontend():
         """Run frontend server in subprocess."""
         frontend_dir = Path(__file__).parent / "frontend"
         
-        # Give backend a moment to start first
-        time.sleep(3)
-        subprocess.run(["npm", "run", "dev"], cwd=frontend_dir)
+        # Wait for backend health check instead of fixed sleep
+        print(f"{Color.BLUE}Esperando a que el backend esté listo...{Color.END}")
+        backend_url = "http://localhost:8000/health"
+        max_attempts = 30
+        for attempt in range(max_attempts):
+            try:
+                response = requests.get(backend_url, timeout=1)
+                if response.status_code == 200:
+                    print(f"{Color.GREEN}✓ Backend está listo{Color.END}")
+                    break
+            except (requests.RequestException, Exception):
+                pass
+            time.sleep(1)
+        else:
+            print(f"{Color.YELLOW}⚠ Backend no respondió después de {max_attempts} segundos, iniciando frontend de todos modos...{Color.END}")
+        
+        try:
+            subprocess.run(["npm", "run", "dev"], cwd=frontend_dir)
+        except FileNotFoundError:
+            print(f"{Color.RED}❌ Error: No se encontró 'npm'. Asegúrate de que Node.js esté instalado.{Color.END}")
+        except Exception as e:
+            print(f"{Color.RED}❌ Error ejecutando frontend: {e}{Color.END}")
     
-    # Create processes
+    # Create processes - Windows requires this to be inside main guard
     backend_process = multiprocessing.Process(target=run_backend, name="Backend")
     frontend_process = multiprocessing.Process(target=run_frontend, name="Frontend")
     
@@ -338,10 +395,20 @@ def start_both():
         if backend_process.is_alive():
             backend_process.terminate()
             backend_process.join(timeout=5)
+            # Force kill if still alive
+            if backend_process.is_alive():
+                print(f"{Color.YELLOW}⚠ Forzando cierre del backend...{Color.END}")
+                backend_process.kill()
+                backend_process.join()
         
         if frontend_process.is_alive():
             frontend_process.terminate()
             frontend_process.join(timeout=5)
+            # Force kill if still alive
+            if frontend_process.is_alive():
+                print(f"{Color.YELLOW}⚠ Forzando cierre del frontend...{Color.END}")
+                frontend_process.kill()
+                frontend_process.join()
         
         print(f"{Color.GREEN}✓ Servidores detenidos{Color.END}")
         return 0
@@ -352,8 +419,16 @@ def start_both():
         # Clean up processes
         if backend_process.is_alive():
             backend_process.terminate()
+            backend_process.join(timeout=5)
+            if backend_process.is_alive():
+                backend_process.kill()
+                backend_process.join()
         if frontend_process.is_alive():
             frontend_process.terminate()
+            frontend_process.join(timeout=5)
+            if frontend_process.is_alive():
+                frontend_process.kill()
+                frontend_process.join()
         
         return 1
 
@@ -400,24 +475,27 @@ Ejemplos de uso:
   python launcher.py --backend          # Inicia solo el backend
   python launcher.py --frontend         # Inicia solo el frontend
   python launcher.py --install          # Instala dependencias
+  python launcher.py --load-sample-data # Carga datos de ejemplo en la base de datos
   python launcher.py --no-reload        # Inicia con auto-reload desactivado
   python launcher.py --port 8080        # Inicia backend en puerto 8080
         """
     )
     
-    parser.add_argument(
+    # Create mutually exclusive group for mode selection
+    mode_group = parser.add_mutually_exclusive_group()
+    mode_group.add_argument(
         "--backend",
         action="store_true",
         help="Iniciar solo el backend"
     )
     
-    parser.add_argument(
+    mode_group.add_argument(
         "--frontend",
         action="store_true",
         help="Iniciar solo el frontend"
     )
     
-    parser.add_argument(
+    mode_group.add_argument(
         "--both",
         action="store_true",
         help="Iniciar backend y frontend juntos (modo completo)"
@@ -427,6 +505,12 @@ Ejemplos de uso:
         "--install",
         action="store_true",
         help="Instalar dependencias"
+    )
+    
+    parser.add_argument(
+        "--load-sample-data",
+        action="store_true",
+        help="Cargar datos de ejemplo en la base de datos"
     )
     
     parser.add_argument(
@@ -463,6 +547,20 @@ Ejemplos de uso:
     if args.install:
         sys.exit(install_dependencies())
     
+    # Load sample data
+    if args.load_sample_data:
+        if not args.skip_checks:
+            check_python_version()
+            if not check_requirements():
+                print(f"\n{Color.YELLOW}Ejecuta: python launcher.py --install{Color.END}")
+                sys.exit(1)
+            if not check_and_init_database():
+                print(f"\n{Color.RED}❌ No se pudo inicializar la base de datos{Color.END}")
+                sys.exit(1)
+        print(f"\n{Color.BLUE}📦 Cargando datos de ejemplo...{Color.END}")
+        load_sample_data()
+        sys.exit(0)
+    
     # Run checks
     if not args.skip_checks:
         check_python_version()
@@ -471,10 +569,10 @@ Ejemplos de uso:
             sys.exit(1)
     
     # Determine what to start
-    if args.frontend and not args.backend and not args.both:
+    if args.frontend:
         # Frontend only
         sys.exit(start_frontend())
-    elif args.backend and not args.frontend and not args.both:
+    elif args.backend:
         # Backend only
         if not args.skip_checks:
             if not check_and_init_database():
@@ -493,6 +591,9 @@ Ejemplos de uso:
                 sys.exit(1)
         sys.exit(start_both())
 
-
 if __name__ == "__main__":
+    # Windows multiprocessing requires this guard to prevent infinite process spawning
+    # when the script imports itself during Process creation
+    import multiprocessing
+    multiprocessing.freeze_support()
     main()

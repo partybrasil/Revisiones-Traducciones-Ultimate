@@ -9,12 +9,23 @@ from backend.config import settings
 connect_args = {}
 if settings.database_url.startswith("sqlite"):
     # SQLite specific configuration
+    # WARNING: SQLite with check_same_thread=False allows sharing connections across threads,
+    # but SQLite has limited write concurrency. Multiple simultaneous writes may result in
+    # "database is locked" errors. For production or high-concurrency environments, 
+    # use PostgreSQL instead by setting DATABASE_URL environment variable.
     connect_args = {"check_same_thread": False}
     engine = create_engine(
         settings.database_url,
         echo=settings.debug,
         connect_args=connect_args
     )
+    # Enable WAL mode to improve SQLite concurrency
+    from sqlalchemy import event
+    @event.listens_for(engine, "connect")
+    def set_sqlite_pragma(dbapi_conn, connection_record):
+        cursor = dbapi_conn.cursor()
+        cursor.execute("PRAGMA journal_mode=WAL")
+        cursor.close()
 else:
     # PostgreSQL or other databases
     engine = create_engine(
