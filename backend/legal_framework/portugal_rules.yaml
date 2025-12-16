@@ -1,0 +1,190 @@
+# Portugal Legal Framework - INFARMED
+# Regulações para productos cosméticos y alimentarios en Portugal
+
+country: "Portugal"
+code: "PT"
+authority: "INFARMED"
+authority_url: "https://www.infarmed.pt"
+
+# Cosmetics - Facial Products
+cosmetics_facial:
+  regulations:
+    - "Regulamento (CE) n.º 1223/2009"
+    - "Decreto-Lei n.º 189/2008"
+  
+  critical_requirements:
+    - field: "title_short.pt"
+      name: "Título del producto en portugués"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "El título del producto debe estar en portugués"
+      error_message: "Falta título en português"
+      example: "Creme Hidratante Facial"
+    
+    - field: "description_detailed.pt"
+      name: "Descripción detallada en portugués"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Descripción completa del producto en portugués"
+      error_message: "Falta descripción detallada en português"
+    
+    - field: "inci_ingredients"
+      name: "Lista INCI completa"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Lista completa de ingredientes INCI"
+      error_message: "Falta lista INCI de ingredientes"
+    
+    - field: "allergens_present"
+      name: "Alérgenos presentes"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Declaración de alérgenos presentes"
+      error_message: "Falta declaración de alérgenos"
+    
+    - field: "mode_of_use.pt"
+      name: "Modo de empleo en portugués"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Instrucciones de uso en portugués"
+      error_message: "Falta modo de empleo en português"
+    
+    - field: "general_warnings.pt"
+      name: "Advertencias en portugués"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Advertencias y precauciones en portugués"
+      error_message: "Falta advertencias en português"
+    
+    - field: "pao"
+      name: "PAO (Period After Opening)"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Símbolo PAO obligatorio si > 30 meses"
+      error_message: "Falta símbolo PAO"
+      example: "12M"
+    
+    - field: "made_in"
+      name: "País de fabricación"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Declaración del país de fabricación"
+      error_message: "Falta país de fabricación"
+    
+    - field: "responsible_person"
+      name: "Persona Responsable"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Datos de la persona responsable en la UE"
+      error_message: "Falta persona responsable"
+  
+  optional_requirements:
+    - field: "natural_origin_percentage"
+      name: "Porcentaje origen natural"
+      translation_mandatory: false
+      tag: "🟡 RECOMENDADO"
+      description: "Declaración de ingredientes de origen natural"
+    
+    - field: "certifications"
+      name: "Certificaciones"
+      translation_mandatory: false
+      tag: "🟡 RECOMENDADO"
+      description: "Certificaciones de calidad (Orgánico, Cruelty-Free, etc.)"
+    
+    - field: "product_images"
+      name: "Imágenes del producto"
+      translation_mandatory: false
+      tag: "🟡 RECOMENDADO"
+      description: "Fotografías del producto y etiquetado"
+
+# Food Products
+food_packaged:
+  regulations:
+    - "Regulamento (UE) n.º 1169/2011"
+    - "Decreto-Lei n.º 26/2016"
+  
+  critical_requirements:
+    - field: "title_short.pt"
+      name: "Denominación en portugués"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Denominación del alimento en portugués"
+      error_message: "Falta denominación en português"
+    
+    - field: "inci_ingredients"
+      name: "Lista de ingredientes"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Lista completa de ingredientes en orden decreciente"
+      error_message: "Falta lista de ingredientes"
+    
+    - field: "allergens_present"
+      name: "Alérgenos (14 de la UE)"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Declaración clara de los 14 alérgenos principales"
+      error_message: "Falta declaración de alérgenos"
+    
+    - field: "net_weight_value"
+      name: "Cantidad neta"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Cantidad neta del producto"
+      error_message: "Falta cantidad neta"
+    
+    - field: "storage_conditions.pt"
+      name: "Condiciones de conservación"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Condiciones especiales de conservación en portugués"
+      error_message: "Falta condiciones de conservación"
+    
+    - field: "distributor"
+      name: "Operador alimentario"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Nombre y dirección del operador"
+      error_message: "Falta operador alimentario"
+
+# Food Supplements
+food_supplements:
+  regulations:
+    - "Decreto-Lei n.º 136/2003"
+    - "Portaria n.º 245/2008"
+  
+  critical_requirements:
+    - field: "title_short.pt"
+      name: "Denominación en portugués"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Denominación del suplemento en portugués"
+      error_message: "Falta denominación en português"
+    
+    - field: "inci_ingredients"
+      name: "Lista de ingredientes"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Lista completa de ingredientes y dosificación"
+      error_message: "Falta lista de ingredientes"
+    
+    - field: "mode_of_use.pt"
+      name: "Modo de empleo y dosis"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Instrucciones de uso y dosis diaria recomendada"
+      error_message: "Falta modo de empleo y dosis"
+    
+    - field: "general_warnings.pt"
+      name: "Advertencias específicas"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Advertencia de no sustituto de dieta equilibrada"
+      error_message: "Falta advertencias específicas"
+      example: "Os suplementos alimentares não devem ser utilizados como substitutos de uma dieta variada e equilibrada"
+    
+    - field: "distributor"
+      name: "Operador responsable"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Nombre y dirección del operador responsable"
+      error_message: "Falta operador responsable"

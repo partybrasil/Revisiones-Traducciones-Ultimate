@@ -1,0 +1,44 @@
+# Food Packaged Preset
+family: FOOD_PACKAGED
+display_name: "Alimentos Envasados"
+
+mode_of_use:
+  es: "Consumir preferentemente antes de la fecha indicada en el envase. Conservar en lugar fresco y seco. Una vez abierto, consumir en un plazo de 3 días y mantener refrigerado."
+  pt: "Consumir preferencialmente antes da data indicada na embalagem. Conservar em local fresco e seco. Depois de aberto, consumir no prazo de 3 dias e manter refrigerado."
+  it: "Consumare preferibilmente entro la data indicata sulla confezione. Conservare in luogo fresco e asciutto. Una volta aperto, consumare entro 3 giorni e mantenere refrigerato."
+  en: "Best before the date indicated on the package. Store in a cool and dry place. Once opened, consume within 3 days and keep refrigerated."
+  fr: "À consommer de préférence avant la date indiquée sur l'emballage. Conserver dans un endroit frais et sec. Une fois ouvert, consommer dans les 3 jours et garder au réfrigérateur."
+  br: "Consumir preferencialmente antes da data indicada na embalagem. Conservar em local fresco e seco. Depois de aberto, consumir no prazo de 3 dias e manter refrigerado."
+
+warnings:
+  es: "Contiene alérgenos. Ver lista de ingredientes. No apto para personas con alergias alimentarias. Mantener refrigerado después de abrir."
+  pt: "Contém alergénios. Ver lista de ingredientes. Não adequado para pessoas com alergias alimentares. Manter refrigerado após abrir."
+  it: "Contiene allergeni. Vedere elenco ingredienti. Non adatto a persone con allergie alimentari. Mantenere refrigerato dopo l'apertura."
+  en: "Contains allergens. See ingredient list. Not suitable for people with food allergies. Keep refrigerated after opening."
+  fr: "Contient des allergènes. Voir liste des ingrédients. Ne convient pas aux personnes souffrant d'allergies alimentaires. Garder au réfrigérateur après ouverture."
+  br: "Contém alergénios. Ver lista de ingredientes. Não adequado para pessoas com alergias alimentares. Manter refrigerado após abrir."
+
+typical_allergens:
+  - "Gluten"
+  - "Leche"
+  - "Huevos"
+  - "Frutos secos"
+  - "Soja"
+
+typical_pictograms:
+  - "RECYCLABLE"
+  - "GREEN_DOT"
+  - "KEEP_REFRIGERATED"
+  - "BEST_BEFORE"
+
+pao_default: null
+
+natural_origin_range: "0-50%"
+
+fields_to_autofill:
+  format_type: "Envase"
+  format_material: "Plástico"
+  format_closure: "Tapa presión"
+  application_frequency: "Según necesidad"
+  storage_temperature_min: 2
+  storage_temperature_max: 8

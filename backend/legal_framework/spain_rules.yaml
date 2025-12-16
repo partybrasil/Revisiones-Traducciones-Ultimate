@@ -1,0 +1,212 @@
+# Spain Legal Framework - AEMPS (Agencia Española de Medicamentos y Productos Sanitarios)
+# Regulaciones para productos cosméticos y alimentarios en España
+
+country: "España"
+code: "ES"
+authority: "AEMPS"
+authority_url: "https://www.aemps.gob.es"
+
+# Cosmetics - Facial Products
+cosmetics_facial:
+  regulations:
+    - "Reglamento (CE) nº 1223/2009"
+    - "Real Decreto 1599/1997"
+  
+  critical_requirements:
+    - field: "title_short.es"
+      name: "Título del producto en español"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "El título del producto debe estar en español"
+      error_message: "Falta título en español"
+      example: "Crema Hidratante Facial"
+    
+    - field: "description_detailed.es"
+      name: "Descripción detallada en español"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Descripción completa del producto en español"
+      error_message: "Falta descripción detallada en español"
+    
+    - field: "inci_ingredients"
+      name: "Lista INCI completa"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Lista completa de ingredientes INCI (nomenclatura internacional)"
+      error_message: "Falta lista INCI de ingredientes"
+    
+    - field: "allergens_present"
+      name: "Alérgenos presentes"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Declaración de alérgenos presentes según Anexo III"
+      error_message: "Falta declaración de alérgenos"
+    
+    - field: "mode_of_use.es"
+      name: "Modo de empleo en español"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Instrucciones de uso en español"
+      error_message: "Falta modo de empleo en español"
+    
+    - field: "general_warnings.es"
+      name: "Advertencias en español"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Advertencias y precauciones en español"
+      error_message: "Falta advertencias en español"
+    
+    - field: "pao"
+      name: "PAO (Period After Opening)"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Símbolo PAO obligatorio si durabilidad > 30 meses"
+      error_message: "Falta símbolo PAO"
+      example: "12M"
+    
+    - field: "made_in"
+      name: "País de fabricación"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Declaración del país de fabricación"
+      error_message: "Falta país de fabricación"
+    
+    - field: "responsible_person"
+      name: "Persona Responsable"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Datos de la persona responsable en la UE"
+      error_message: "Falta persona responsable"
+    
+    - field: "net_weight_value"
+      name: "Contenido nominal"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Contenido nominal en peso o volumen"
+      error_message: "Falta contenido nominal"
+  
+  optional_requirements:
+    - field: "natural_origin_percentage"
+      name: "Porcentaje origen natural"
+      translation_mandatory: false
+      tag: "🟡 RECOMENDADO"
+      description: "Declaración de ingredientes de origen natural"
+    
+    - field: "certifications"
+      name: "Certificaciones"
+      translation_mandatory: false
+      tag: "🟡 RECOMENDADO"
+      description: "Certificaciones de calidad (Ecológico, Cruelty-Free, etc.)"
+    
+    - field: "product_images"
+      name: "Imágenes del producto"
+      translation_mandatory: false
+      tag: "🟡 RECOMENDADO"
+      description: "Fotografías del producto y etiquetado"
+
+# Food Products
+food_packaged:
+  regulations:
+    - "Reglamento (UE) nº 1169/2011"
+    - "Real Decreto 126/2015"
+  
+  critical_requirements:
+    - field: "title_short.es"
+      name: "Denominación en español"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Denominación del alimento en español"
+      error_message: "Falta denominación en español"
+    
+    - field: "inci_ingredients"
+      name: "Lista de ingredientes"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Lista completa de ingredientes en orden decreciente"
+      error_message: "Falta lista de ingredientes"
+    
+    - field: "allergens_present"
+      name: "Alérgenos (14 de la UE)"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Declaración destacada de los 14 alérgenos principales (UE 1169/2011 Anexo II)"
+      error_message: "Falta declaración de alérgenos"
+      example: "Contiene: gluten, leche, huevos"
+    
+    - field: "net_weight_value"
+      name: "Cantidad neta"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Cantidad neta del producto"
+      error_message: "Falta cantidad neta"
+    
+    - field: "storage_conditions.es"
+      name: "Condiciones de conservación"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Condiciones especiales de conservación y uso en español"
+      error_message: "Falta condiciones de conservación"
+    
+    - field: "distributor"
+      name: "Operador alimentario"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Nombre, razón social y dirección del operador"
+      error_message: "Falta operador alimentario"
+    
+    - field: "made_in"
+      name: "País de origen"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "País de origen cuando sea obligatorio o pueda inducir a error"
+      error_message: "Falta país de origen"
+
+# Food Supplements
+food_supplements:
+  regulations:
+    - "Real Decreto 1487/2009"
+    - "Directiva 2002/46/CE"
+  
+  critical_requirements:
+    - field: "title_short.es"
+      name: "Denominación en español"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Denominación del complemento alimenticio en español"
+      error_message: "Falta denominación en español"
+    
+    - field: "inci_ingredients"
+      name: "Lista de ingredientes"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Lista completa de ingredientes con cantidades por dosis diaria"
+      error_message: "Falta lista de ingredientes"
+    
+    - field: "mode_of_use.es"
+      name: "Modo de empleo y dosis"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Instrucciones de uso y dosis diaria recomendada"
+      error_message: "Falta modo de empleo y dosis"
+    
+    - field: "general_warnings.es"
+      name: "Advertencias específicas"
+      translation_mandatory: true
+      tag: "🔴 CRÍTICO"
+      description: "Advertencia obligatoria: no sustituye dieta equilibrada"
+      error_message: "Falta advertencias específicas"
+      example: "Los complementos alimenticios no deben utilizarse como sustitutos de una dieta variada y equilibrada y un modo de vida sano"
+    
+    - field: "distributor"
+      name: "Operador responsable"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Nombre y dirección del operador responsable"
+      error_message: "Falta operador responsable"
+    
+    - field: "net_weight_value"
+      name: "Cantidad neta"
+      translation_mandatory: false
+      tag: "🔴 CRÍTICO"
+      description: "Cantidad neta del producto"
+      error_message: "Falta cantidad neta"

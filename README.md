@@ -196,6 +196,12 @@ source venv/bin/activate
 
 #### 2.2. Instalar Dependencias
 
+Opción 1 - Usar el launcher (recomendado):
+```bash
+python launcher.py --install
+```
+
+Opción 2 - Manual:
 ```bash
 pip install --upgrade pip
 pip install -r backend/requirements.txt
@@ -208,6 +214,7 @@ uvicorn[standard]==0.27.0
 sqlalchemy==2.0.25
 psycopg2-binary==2.9.9
 pydantic==2.5.3
+pydantic-settings==2.1.0
 alembic==1.13.1
 openpyxl==3.1.2
 reportlab==4.0.9
@@ -220,6 +227,7 @@ pytest-asyncio==0.23.3
 python-multipart==0.0.6
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
+pyyaml==6.0.1
 ```
 
 #### 2.3. Configurar Base de Datos
@@ -238,27 +246,44 @@ CREATE DATABASE revisiones_traducciones_db;
 
 Crear `backend/.env`:
 
+```bash
+cp backend/.env.example backend/.env
+```
+
+Editar el archivo `.env`:
+
 ```env
 DATABASE_URL=postgresql://username:password@localhost:5432/revisiones_traducciones_db
-SECRET_KEY=your-super-secret-key-change-in-production
+SECRET_KEY=your-super-secret-key-change-in-production-min-32-chars
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 DEBUG=True
-ALLOWED_ORIGINS=http://localhost:5173
+ALLOWED_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
 UPLOAD_DIR=./uploads
 MAX_FILE_SIZE=10485760
+HOST=0.0.0.0
+PORT=8000
 ```
 
-#### 2.5. Ejecutar Migraciones
+#### 2.5. Inicializar Base de Datos
 
 ```bash
 cd backend
-alembic upgrade head
+python init_db.py
 ```
+
+Esto creará las tablas, cargará los presets y creará un producto de ejemplo.
 
 #### 2.6. Iniciar Backend
 
+Opción 1 - Usar el launcher (recomendado):
 ```bash
+python launcher.py
+```
+
+Opción 2 - Manual:
+```bash
+cd backend
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
@@ -278,6 +303,12 @@ npm install
 
 Crear `frontend/.env`:
 
+```bash
+cp frontend/.env.example frontend/.env
+```
+
+El archivo ya tiene la configuración por defecto:
+
 ```env
 VITE_API_BASE_URL=http://localhost:8000/api
 VITE_ENABLE_WEB_SCRAPING=true
@@ -291,6 +322,47 @@ npm run dev
 ```
 
 Frontend disponible en: **http://localhost:5173**
+
+---
+
+## 🎮 Uso del Launcher
+
+El launcher simplifica el inicio de la aplicación. Comandos disponibles:
+
+```bash
+# Iniciar backend (por defecto)
+python launcher.py
+
+# Iniciar backend sin auto-reload
+python launcher.py --no-reload
+
+# Iniciar backend en puerto personalizado
+python launcher.py --port 8080
+
+# Iniciar frontend
+python launcher.py --frontend
+
+# Instalar/actualizar todas las dependencias
+python launcher.py --install
+
+# Saltar verificaciones de inicio
+python launcher.py --skip-checks
+
+# Ver ayuda
+python launcher.py --help
+```
+
+**Ejecución Completa:**
+
+En Terminal 1:
+```bash
+python launcher.py
+```
+
+En Terminal 2:
+```bash
+python launcher.py --frontend
+```
 
 ---
 

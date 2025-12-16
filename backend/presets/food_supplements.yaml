@@ -1,0 +1,42 @@
+# Food Supplements Preset
+family: FOOD_SUPPLEMENTS
+display_name: "Suplementos Alimenticios"
+
+mode_of_use:
+  es: "Tomar 1 cápsula al día con un vaso de agua, preferiblemente con las comidas. No exceder la dosis diaria recomendada."
+  pt: "Tomar 1 cápsula por dia com um copo de água, preferencialmente com as refeições. Não exceder a dose diária recomendada."
+  it: "Assumere 1 capsula al giorno con un bicchiere d'acqua, preferibilmente durante i pasti. Non superare la dose giornaliera raccomandata."
+  en: "Take 1 capsule daily with a glass of water, preferably with meals. Do not exceed the recommended daily dose."
+  fr: "Prendre 1 gélule par jour avec un verre d'eau, de préférence pendant les repas. Ne pas dépasser la dose journalière recommandée."
+  br: "Tomar 1 cápsula por dia com um copo de água, preferencialmente com as refeições. Não exceder a dose diária recomendada."
+
+warnings:
+  es: "Los complementos alimenticios no deben utilizarse como sustitutos de una dieta variada y equilibrada y un modo de vida sano. Mantener fuera del alcance de los niños pequeños. No recomendado para mujeres embarazadas o en período de lactancia sin supervisión médica."
+  pt: "Os suplementos alimentares não devem ser utilizados como substitutos de uma dieta variada e equilibrada e de um modo de vida saudável. Manter fora do alcance das crianças. Não recomendado para mulheres grávidas ou a amamentar sem supervisão médica."
+  it: "Gli integratori alimentari non devono essere utilizzati come sostituti di una dieta varia ed equilibrata e di uno stile di vita sano. Tenere fuori dalla portata dei bambini. Non raccomandato per donne in gravidanza o allattamento senza supervisione medica."
+  en: "Food supplements should not be used as substitutes for a varied and balanced diet and a healthy lifestyle. Keep out of reach of young children. Not recommended for pregnant or breastfeeding women without medical supervision."
+  fr: "Les compléments alimentaires ne doivent pas être utilisés comme substituts d'un régime alimentaire varié et équilibré et d'un mode de vie sain. Tenir hors de portée des jeunes enfants. Non recommandé pour les femmes enceintes ou allaitantes sans surveillance médicale."
+  br: "Os suplementos alimentares não devem ser utilizados como substitutos de uma dieta variada e equilibrada e de um modo de vida saudável. Manter fora do alcance das crianças. Não recomendado para mulheres grávidas ou a amamentar sem supervisão médica."
+
+typical_allergens:
+  - "Gluten"
+  - "Lactosa"
+  - "Soja"
+
+typical_pictograms:
+  - "RECYCLABLE"
+  - "KEEP_DRY"
+  - "SUPPLEMENT_ICON"
+  - "NOT_MEDICINE"
+
+pao_default: "24M"
+
+natural_origin_range: "50-100%"
+
+fields_to_autofill:
+  format_type: "Frasco"
+  format_material: "Plástico"
+  format_closure: "Rosca"
+  application_frequency: "Diario - 1 vez al día"
+  storage_temperature_min: 5
+  storage_temperature_max: 25

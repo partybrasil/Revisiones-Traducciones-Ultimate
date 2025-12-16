@@ -1,0 +1,44 @@
+# Cosmetics Facial Preset
+family: COSMETICS_FACIAL
+display_name: "Cosméticos Faciales"
+
+mode_of_use:
+  es: "Aplicar una cantidad adecuada sobre el rostro limpio y seco. Masajear suavemente hasta su completa absorción. Usar por la mañana y/o por la noche."
+  pt: "Aplicar quantidade adequada sobre o rosto limpo e seco. Massajar suavemente até completa absorção. Usar de manhã e/ou à noite."
+  it: "Applicare una quantità adeguata sul viso pulito e asciutto. Massaggiare delicatamente fino al completo assorbimento. Usare al mattino e/o alla sera."
+  en: "Apply an adequate amount on clean and dry face. Massage gently until fully absorbed. Use in the morning and/or evening."
+  fr: "Appliquer une quantité adéquate sur le visage propre et sec. Masser doucement jusqu'à absorption complète. Utiliser le matin et/ou le soir."
+  br: "Aplicar quantidade adequada sobre o rosto limpo e seco. Massagear suavemente até completa absorção. Usar de manhã e/ou à noite."
+
+warnings:
+  es: "Solo para uso externo. Evitar el contacto con los ojos. En caso de contacto, lavar inmediatamente con agua abundante. Mantener fuera del alcance de los niños. Suspender su uso si aparece irritación."
+  pt: "Apenas para uso externo. Evitar contacto com os olhos. Em caso de contacto, lavar imediatamente com água abundante. Manter fora do alcance das crianças. Suspender o uso se aparecer irritação."
+  it: "Solo per uso esterno. Evitare il contatto con gli occhi. In caso di contatto, lavare immediatamente con abbondante acqua. Tenere fuori dalla portata dei bambini. Interrompere l'uso se compare irritazione."
+  en: "For external use only. Avoid contact with eyes. In case of contact, rinse immediately with plenty of water. Keep out of reach of children. Discontinue use if irritation occurs."
+  fr: "Usage externe uniquement. Éviter le contact avec les yeux. En cas de contact, rincer immédiatement à l'eau abondante. Tenir hors de portée des enfants. Cesser l'utilisation en cas d'irritation."
+  br: "Apenas para uso externo. Evitar contato com os olhos. Em caso de contato, lavar imediatamente com água abundante. Manter fora do alcance das crianças. Suspender o uso se aparecer irritação."
+
+typical_allergens:
+  - "Linalool"
+  - "Limonene"
+  - "Citronellol"
+  - "Geraniol"
+
+typical_pictograms:
+  - "PAO_12M"
+  - "RECYCLABLE"
+  - "DERMATOLOGICALLY_TESTED"
+  - "NO_ANIMAL_TESTING"
+
+pao_default: "12M"
+
+natural_origin_range: "50-100%"
+
+fields_to_autofill:
+  format_type: "Tarro"
+  format_material: "Plástico"
+  format_closure: "Rosca"
+  application_area: "Rostro"
+  application_frequency: "Diario - Mañana y noche"
+  storage_temperature_min: 5
+  storage_temperature_max: 25
