@@ -8,6 +8,7 @@ import sys
 import subprocess
 import argparse
 import signal
+import multiprocessing
 from pathlib import Path
 
 
@@ -112,14 +113,13 @@ def check_and_init_database():
             parsed_url = make_url(db_url)
             db_file = parsed_url.database
             
-            # Validate db_file is not empty or invalid
-            if not db_file or db_file == ":memory:":
-                if db_file == ":memory:":
-                    print(f"{Color.GREEN}✓ Usando base de datos SQLite en memoria{Color.END}")
-                    db_exists = True
-                else:
-                    print(f"{Color.RED}❌ URL de base de datos SQLite inválida: {db_url}{Color.END}")
-                    return False
+            # Handle special cases
+            if db_file == ":memory:":
+                print(f"{Color.GREEN}✓ Usando base de datos SQLite en memoria{Color.END}")
+                db_exists = True
+            elif not db_file:
+                print(f"{Color.RED}❌ URL de base de datos SQLite inválida: {db_url}{Color.END}")
+                return False
             else:
                 # Make path absolute if relative
                 if not os.path.isabs(db_file):
@@ -304,7 +304,6 @@ def start_frontend():
 
 def start_both():
     """Start both backend and frontend servers in parallel using multiprocessing."""
-    import multiprocessing
     import time
     import requests
     
@@ -349,7 +348,7 @@ def start_both():
                 if response.status_code == 200:
                     print(f"{Color.GREEN}✓ Backend está listo{Color.END}")
                     break
-            except (requests.RequestException, Exception):
+            except requests.RequestException:
                 pass
             time.sleep(1)
         else:
@@ -594,6 +593,5 @@ Ejemplos de uso:
 if __name__ == "__main__":
     # Windows multiprocessing requires this guard to prevent infinite process spawning
     # when the script imports itself during Process creation
-    import multiprocessing
     multiprocessing.freeze_support()
     main()
