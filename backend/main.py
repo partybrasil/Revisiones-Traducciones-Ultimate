@@ -72,13 +72,21 @@ async def health_check():
 
 
 # Import and include routers
-from api import routes_products, routes_versions, routes_legal
+from api import (
+    routes_products, 
+    routes_versions, 
+    routes_legal, 
+    routes_translations,
+    routes_import_export,
+    routes_images
+)
 
 app.include_router(routes_products.router, prefix="/api/products", tags=["products"])
 app.include_router(routes_versions.router, prefix="/api", tags=["versions"])
 app.include_router(routes_legal.router, prefix="/api/legal", tags=["legal"])
-# Additional routers will be added as we create them
-# app.include_router(routes_import.router, prefix="/api/import", tags=["import"])
+app.include_router(routes_translations.router)  # Ya tiene prefix en el router
+app.include_router(routes_import_export.router)  # Ya tiene prefix en el router
+app.include_router(routes_images.router)  # Ya tiene prefix en el router
 
 
 if __name__ == "__main__":

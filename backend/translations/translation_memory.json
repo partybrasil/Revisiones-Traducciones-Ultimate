@@ -1,0 +1,102 @@
+{
+  "es-pt": {
+    "Crema Hidratante": {
+      "translations": ["Creme Hidratante"],
+      "count": 5,
+      "confidence": 0.98
+    },
+    "Modo de Empleo": {
+      "translations": ["Modo de Emprego"],
+      "count": 3,
+      "confidence": 0.99
+    },
+    "Advertencia": {
+      "translations": ["Aviso"],
+      "count": 2,
+      "confidence": 0.95
+    },
+    "Sin Gluten": {
+      "translations": ["Sem Glúten"],
+      "count": 1,
+      "confidence": 0.90
+    },
+    "Aplicar": {
+      "translations": ["Aplicar"],
+      "count": 4,
+      "confidence": 0.99
+    },
+    "Masajear": {
+      "translations": ["Massagear"],
+      "count": 3,
+      "confidence": 0.97
+    },
+    "Evitar contacto con los ojos": {
+      "translations": ["Evitar contacto com os olhos"],
+      "count": 2,
+      "confidence": 0.98
+    }
+  },
+  "es-it": {
+    "Crema Hidratante": {
+      "translations": ["Crema Idratante"],
+      "count": 4,
+      "confidence": 0.97
+    },
+    "Aviso": {
+      "translations": ["Avvertenza"],
+      "count": 2,
+      "confidence": 0.93
+    },
+    "Ingrediente": {
+      "translations": ["Ingrediente"],
+      "count": 1,
+      "confidence": 0.99
+    },
+    "Aplicar": {
+      "translations": ["Applicare"],
+      "count": 3,
+      "confidence": 0.98
+    },
+    "Masajear": {
+      "translations": ["Massaggiare"],
+      "count": 2,
+      "confidence": 0.96
+    }
+  },
+  "es-en": {
+    "Crema": {
+      "translations": ["Cream"],
+      "count": 10,
+      "confidence": 0.99
+    },
+    "Modo de Empleo": {
+      "translations": ["Instructions for use", "How to use"],
+      "count": 5,
+      "confidence": 0.98
+    },
+    "Hidratante": {
+      "translations": ["Moisturizing", "Hydrating"],
+      "count": 7,
+      "confidence": 0.97
+    },
+    "Advertencia": {
+      "translations": ["Warning"],
+      "count": 4,
+      "confidence": 0.99
+    }
+  },
+  "pt-es": {
+    "Creme Hidratante": {
+      "translations": ["Crema Hidratante"],
+      "count": 3,
+      "confidence": 0.98
+    }
+  },
+  "it-es": {
+    "Crema Idratante": {
+      "translations": ["Crema Hidratante"],
+      "count": 2,
+      "confidence": 0.97
+    }
+  }
+}
