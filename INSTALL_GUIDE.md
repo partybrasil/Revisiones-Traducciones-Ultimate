@@ -50,7 +50,7 @@ Este script creará:
 ## Características de los Productos de Ejemplo
 
 Los productos de ejemplo incluyen:
-- Traducciones completas en múltiples idiomas (ES, PT, IT, EN, FR)
+- Traducciones completas en ES, PT, IT y EN (FR solo en algunos productos)
 - Diferentes estados: `approved`, `in_review`, `draft`
 - Diferentes familias de productos
 - Diferentes formatos: botellas, frascos, paquetes
