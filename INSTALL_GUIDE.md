@@ -123,4 +123,4 @@ El script detecta automáticamente si los productos ya existen y los omite. Si d
 
 ---
 
-**Última actualización:** 16 de Diciembre, 2025
+**Última actualización:** 16 de diciembre, 2025
