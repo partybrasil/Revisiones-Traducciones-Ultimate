@@ -6,6 +6,26 @@
 
 ---
 
+## ⚡ Inicio Rápido (2 Comandos)
+
+```bash
+# 1. Instalar dependencias
+python launcher.py --install
+
+# 2. Iniciar aplicación (backend + frontend automático)
+python launcher.py
+```
+
+**¡Listo!** La aplicación creará automáticamente la base de datos SQLite, inicializará las tablas y arrancará en:
+- **Backend API**: http://localhost:8000/docs
+- **Frontend**: http://localhost:5173 (si está configurado)
+
+**Sin Docker. Sin PostgreSQL. Sin configuración manual.** 🎉
+
+[Ver Guía Completa de Instalación →](QUICKSTART.md)
+
+---
+
 ## 📋 Tabla de Contenidos
 
 - [Descripción](#descripción)

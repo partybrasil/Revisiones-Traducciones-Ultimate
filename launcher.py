@@ -86,6 +86,9 @@ def check_frontend_setup():
         print(f"{Color.GREEN}✓ Frontend configurado correctamente{Color.END}")
     
     return True
+
+
+def check_and_init_database():
     """Check if database exists and initialize it if needed."""
     print(f"\n{Color.BOLD}Verificando base de datos...{Color.END}")
     

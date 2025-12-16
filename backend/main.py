@@ -4,7 +4,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import os
-# Absolute imports so the app works when launched from repository root
+import sys
+
+# Add parent directory to path if running from backend directory
+if __name__ == "__main__" or "backend" not in sys.modules:
+    from pathlib import Path
+    parent_dir = Path(__file__).parent.parent
+    if str(parent_dir) not in sys.path:
+        sys.path.insert(0, str(parent_dir))
+
 from backend.config import settings
 from backend.database import init_db
 
