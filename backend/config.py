@@ -1,5 +1,6 @@
 """Configuration module for Revisiones-Traducciones-Ultimate backend."""
 from typing import List
+from pathlib import Path
 from pydantic_settings import BaseSettings
 from pydantic import Field
 
@@ -9,7 +10,7 @@ class Settings(BaseSettings):
     
     # Database
     database_url: str = Field(
-        default="postgresql://postgres:postgres@localhost:5432/revisiones_traducciones_db",
+        default="sqlite:///./revisiones_traducciones.db",
         alias="DATABASE_URL"
     )
     

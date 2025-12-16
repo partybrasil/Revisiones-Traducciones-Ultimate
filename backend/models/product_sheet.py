@@ -1,9 +1,13 @@
 """SQLAlchemy models for product sheets."""
 from datetime import datetime
 from sqlalchemy import Column, String, Integer, Float, Boolean, DateTime, Text, JSON, Index
-from sqlalchemy.dialects.postgresql import UUID, JSONB
 import uuid
-from database import Base
+from backend.database import Base
+
+
+def generate_uuid():
+    """Generate UUID string for primary keys."""
+    return str(uuid.uuid4())
 
 
 class ProductSheet(Base):
@@ -170,7 +174,7 @@ class ProductVersion(Base):
     
     __tablename__ = "product_versions"
     
-    version_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    version_id = Column(String(36), primary_key=True, default=generate_uuid)
     sku = Column(String(50), nullable=False, index=True)
     version_number = Column(String(20), nullable=False)
     version_type = Column(String(10), nullable=False)  # major, minor, patch
@@ -178,7 +182,7 @@ class ProductVersion(Base):
     snapshot_date = Column(DateTime, default=datetime.utcnow, nullable=False)
     created_by = Column(String(100))
     change_summary = Column(Text)
-    complete_snapshot = Column(JSONB, nullable=False)  # Complete state of product at this version
+    complete_snapshot = Column(JSON, nullable=False)  # Complete state of product at this version
     
     __table_args__ = (
         Index('idx_versions_sku_number', 'sku', 'version_number'),
@@ -205,7 +209,7 @@ class ProductChangelog(Base):
     
     __tablename__ = "product_changelog"
     
-    change_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    change_id = Column(String(36), primary_key=True, default=generate_uuid)
     sku = Column(String(50), nullable=False, index=True)
     version_from = Column(String(20))
     version_to = Column(String(20), nullable=False)
@@ -238,7 +242,7 @@ class LegalRule(Base):
     
     __tablename__ = "legal_rules"
     
-    rule_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    rule_id = Column(String(36), primary_key=True, default=generate_uuid)
     country = Column(String(2), nullable=False)  # PT, IT, ES
     family = Column(String(100), nullable=False)
     requirement_type = Column(String(20), nullable=False)  # critical, optional
@@ -272,7 +276,7 @@ class Preset(Base):
     
     __tablename__ = "presets"
     
-    preset_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    preset_id = Column(String(36), primary_key=True, default=generate_uuid)
     family = Column(String(100), unique=True, nullable=False)
     display_name = Column(String(200))
     mode_of_use = Column(JSON, default=dict)  # {es, pt, it, en, fr, br}
