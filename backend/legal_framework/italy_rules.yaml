@@ -1,0 +1,190 @@
+# Italy Legal Framework - Ministero della Salute
+# Regulazioni per prodotti cosmetici e alimentari in Italia
+
+country: "Italia"
+code: "IT"
+authority: "Ministero della Salute"
+authority_url: "https://www.salute.gov.it"
+
+# Cosmetics - Facial Products
+cosmetics_facial:
+  regulations:
+    - "Regolamento (CE) n. 1223/2009"
+    - "Decreto Legislativo 713/1986"
+  
+  critical_requirements:
+    - field: "title_short.it"
+      name: "Titolo del prodotto in italiano"
+      translation_mandatory: true
+      tag: "🔴 CRITICO"
+      description: "Il titolo del prodotto deve essere in italiano"
+      error_message: "Manca il titolo in italiano"
+      example: "Crema Idratante Viso"
+    
+    - field: "description_detailed.it"
+      name: "Descrizione dettagliata in italiano"
+      translation_mandatory: true
+      tag: "🔴 CRITICO"
+      description: "Descrizione completa del prodotto in italiano"
+      error_message: "Manca la descrizione dettagliata in italiano"
+    
+    - field: "inci_ingredients"
+      name: "Elenco INCI completo"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Elenco completo degli ingredienti INCI"
+      error_message: "Manca l'elenco INCI degli ingredienti"
+    
+    - field: "allergens_present"
+      name: "Allergeni presenti"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Dichiarazione degli allergeni presenti"
+      error_message: "Manca la dichiarazione degli allergeni"
+    
+    - field: "mode_of_use.it"
+      name: "Modo d'uso in italiano"
+      translation_mandatory: true
+      tag: "🔴 CRITICO"
+      description: "Istruzioni per l'uso in italiano"
+      error_message: "Manca il modo d'uso in italiano"
+    
+    - field: "general_warnings.it"
+      name: "Avvertenze in italiano"
+      translation_mandatory: true
+      tag: "🔴 CRITICO"
+      description: "Avvertenze e precauzioni in italiano"
+      error_message: "Mancano le avvertenze in italiano"
+    
+    - field: "pao"
+      name: "PAO (Periodo Dopo l'Apertura)"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Simbolo PAO obbligatorio se > 30 mesi"
+      error_message: "Manca il simbolo PAO"
+      example: "12M"
+    
+    - field: "made_in"
+      name: "Paese di fabbricazione"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Dichiarazione del paese di fabbricazione"
+      error_message: "Manca il paese di fabbricazione"
+    
+    - field: "responsible_person"
+      name: "Persona Responsabile"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Dati della persona responsabile nell'UE"
+      error_message: "Manca la persona responsabile"
+  
+  optional_requirements:
+    - field: "natural_origin_percentage"
+      name: "Percentuale di origine naturale"
+      translation_mandatory: false
+      tag: "🟡 RACCOMANDATO"
+      description: "Dichiarazione degli ingredienti di origine naturale"
+    
+    - field: "certifications"
+      name: "Certificazioni"
+      translation_mandatory: false
+      tag: "🟡 RACCOMANDATO"
+      description: "Certificazioni di qualità (Biologico, Cruelty-Free, ecc.)"
+    
+    - field: "product_images"
+      name: "Immagini del prodotto"
+      translation_mandatory: false
+      tag: "🟡 RACCOMANDATO"
+      description: "Fotografie del prodotto e dell'etichettatura"
+
+# Food Products
+food_packaged:
+  regulations:
+    - "Regolamento (UE) n. 1169/2011"
+    - "Decreto Legislativo 231/2017"
+  
+  critical_requirements:
+    - field: "title_short.it"
+      name: "Denominazione in italiano"
+      translation_mandatory: true
+      tag: "🔴 CRITICO"
+      description: "Denominazione dell'alimento in italiano"
+      error_message: "Manca la denominazione in italiano"
+    
+    - field: "inci_ingredients"
+      name: "Elenco degli ingredienti"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Elenco completo degli ingredienti in ordine decrescente"
+      error_message: "Manca l'elenco degli ingredienti"
+    
+    - field: "allergens_present"
+      name: "Allergeni (14 dell'UE)"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Dichiarazione chiara dei 14 allergeni principali"
+      error_message: "Manca la dichiarazione degli allergeni"
+    
+    - field: "net_weight_value"
+      name: "Quantità netta"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Quantità netta del prodotto"
+      error_message: "Manca la quantità netta"
+    
+    - field: "storage_conditions.it"
+      name: "Condizioni di conservazione"
+      translation_mandatory: true
+      tag: "🔴 CRITICO"
+      description: "Condizioni speciali di conservazione in italiano"
+      error_message: "Mancano le condizioni di conservazione"
+    
+    - field: "distributor"
+      name: "Operatore alimentare"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Nome e indirizzo dell'operatore"
+      error_message: "Manca l'operatore alimentare"
+
+# Food Supplements
+food_supplements:
+  regulations:
+    - "Decreto Legislativo 169/2004"
+    - "Circolare Ministerio Salute"
+  
+  critical_requirements:
+    - field: "title_short.it"
+      name: "Denominazione in italiano"
+      translation_mandatory: true
+      tag: "🔴 CRITICO"
+      description: "Denominazione del supplemento in italiano"
+      error_message: "Manca la denominazione in italiano"
+    
+    - field: "inci_ingredients"
+      name: "Elenco degli ingredienti"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Elenco completo degli ingredienti e dosaggio"
+      error_message: "Manca l'elenco degli ingredienti"
+    
+    - field: "mode_of_use.it"
+      name: "Modo d'uso e dose"
+      translation_mandatory: true
+      tag: "🔴 CRITICO"
+      description: "Istruzioni per l'uso e dose giornaliera raccomandata"
+      error_message: "Mancano il modo d'uso e la dose"
+    
+    - field: "general_warnings.it"
+      name: "Avvertenze specifiche"
+      translation_mandatory: true
+      tag: "🔴 CRITICO"
+      description: "Avvertenza di non sostituto di dieta equilibrata"
+      error_message: "Mancano le avvertenze specifiche"
+      example: "Gli integratori alimentari non devono essere utilizzati come sostituti di una dieta varia ed equilibrata"
+    
+    - field: "distributor"
+      name: "Operatore responsabile"
+      translation_mandatory: false
+      tag: "🔴 CRITICO"
+      description: "Nome e indirizzo dell'operatore responsabile"
+      error_message: "Manca l'operatore responsabile"
