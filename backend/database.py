@@ -5,14 +5,25 @@ from sqlalchemy.orm import sessionmaker
 # Use absolute import so launcher works when executed from repo root
 from backend.config import settings
 
-# Create engine
-engine = create_engine(
-    settings.database_url,
-    echo=settings.debug,
-    pool_pre_ping=True,
-    pool_size=10,
-    max_overflow=20
-)
+# Configure engine based on database type
+connect_args = {}
+if settings.database_url.startswith("sqlite"):
+    # SQLite specific configuration
+    connect_args = {"check_same_thread": False}
+    engine = create_engine(
+        settings.database_url,
+        echo=settings.debug,
+        connect_args=connect_args
+    )
+else:
+    # PostgreSQL or other databases
+    engine = create_engine(
+        settings.database_url,
+        echo=settings.debug,
+        pool_pre_ping=True,
+        pool_size=10,
+        max_overflow=20
+    )
 
 # Create sessionmaker
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
