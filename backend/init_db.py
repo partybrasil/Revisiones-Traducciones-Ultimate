@@ -106,7 +106,8 @@ def create_sample_products():
                 "es": "Aplicar una cantidad adecuada sobre el rostro limpio y seco. Masajear suavemente hasta su completa absorción.",
                 "pt": "Aplicar quantidade adequada sobre o rosto limpo e seco. Massajar suavemente até completa absorção.",
                 "it": "Applicare una quantità adeguata sul viso pulito e asciutto. Massaggiare delicatamente fino al completo assorbimento.",
-                "en": "Apply an adequate amount on clean and dry face. Massage gently until fully absorbed."
+                "en": "Apply an adequate amount on clean and dry face. Massage gently until fully absorbed.",
+                "fr": "Appliquer une quantité adéquate sur le visage propre et sec. Masser délicatement jusqu'à absorption complète."
             },
             general_warnings={
                 "es": "Solo para uso externo. Evitar el contacto con los ojos. Mantener fuera del alcance de los niños.",
