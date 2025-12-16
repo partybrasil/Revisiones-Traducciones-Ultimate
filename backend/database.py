@@ -2,7 +2,8 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from config import settings
+# Use absolute import so launcher works when executed from repo root
+from backend.config import settings
 
 # Create engine
 engine = create_engine(

@@ -4,8 +4,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from contextlib import asynccontextmanager
 import os
-from config import settings
-from database import init_db
+# Absolute imports so the app works when launched from repository root
+from backend.config import settings
+from backend.database import init_db
 
 
 @asynccontextmanager
