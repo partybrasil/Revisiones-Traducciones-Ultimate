@@ -113,7 +113,8 @@ def create_sample_products():
                 "es": "Solo para uso externo. Evitar el contacto con los ojos. Mantener fuera del alcance de los niños.",
                 "pt": "Apenas para uso externo. Evitar contacto com os olhos. Manter fora do alcance das crianças.",
                 "it": "Solo per uso esterno. Evitare il contatto con gli occhi. Tenere fuori dalla portata dei bambini.",
-                "en": "For external use only. Avoid contact with eyes. Keep out of reach of children."
+                "en": "For external use only. Avoid contact with eyes. Keep out of reach of children.",
+                "fr": "Pour usage externe uniquement. Éviter le contact avec les yeux. Tenir hors de portée des enfants."
             },
             current_version="1.0",
             status="approved",
