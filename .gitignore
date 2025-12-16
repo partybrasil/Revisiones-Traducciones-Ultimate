@@ -208,6 +208,13 @@ __marimo__/
 
 # Project specific
 backend/uploads/
+backend/.env
 frontend/dist/
+frontend/.env
 frontend/node_modules/
 .DS_Store
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
