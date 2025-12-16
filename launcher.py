@@ -9,7 +9,14 @@ import subprocess
 import argparse
 import signal
 import multiprocessing
+import time
 from pathlib import Path
+
+try:
+    import requests
+except ImportError:
+    # requests will be imported when needed, if not available will show error
+    requests = None
 
 
 class Color:
@@ -304,8 +311,6 @@ def start_frontend():
 
 def start_both():
     """Start both backend and frontend servers in parallel using multiprocessing."""
-    import time
-    import requests
     
     print(f"\n{Color.BOLD}🚀 Iniciando Backend + Frontend...{Color.END}")
     
@@ -339,20 +344,26 @@ def start_both():
         frontend_dir = Path(__file__).parent / "frontend"
         
         # Wait for backend health check instead of fixed sleep
-        print(f"{Color.BLUE}Esperando a que el backend esté listo...{Color.END}")
-        backend_url = "http://localhost:8000/health"
-        max_attempts = 30
-        for attempt in range(max_attempts):
-            try:
-                response = requests.get(backend_url, timeout=1)
-                if response.status_code == 200:
-                    print(f"{Color.GREEN}✓ Backend está listo{Color.END}")
-                    break
-            except requests.RequestException:
-                pass
-            time.sleep(1)
+        if requests is not None:
+            print(f"{Color.BLUE}Esperando a que el backend esté listo...{Color.END}")
+            backend_url = "http://localhost:8000/health"
+            max_attempts = 30
+            for attempt in range(max_attempts):
+                try:
+                    response = requests.get(backend_url, timeout=1)
+                    if response.status_code == 200:
+                        print(f"{Color.GREEN}✓ Backend está listo{Color.END}")
+                        break
+                except requests.RequestException:
+                    # Connection failed, backend not ready yet
+                    pass
+                time.sleep(1)
+            else:
+                print(f"{Color.YELLOW}⚠ Backend no respondió después de {max_attempts} segundos, iniciando frontend de todos modos...{Color.END}")
         else:
-            print(f"{Color.YELLOW}⚠ Backend no respondió después de {max_attempts} segundos, iniciando frontend de todos modos...{Color.END}")
+            # Fallback to simple sleep if requests not available
+            print(f"{Color.BLUE}Esperando 3 segundos para que el backend se inicie...{Color.END}")
+            time.sleep(3)
         
         try:
             subprocess.run(["npm", "run", "dev"], cwd=frontend_dir)
@@ -591,7 +602,7 @@ Ejemplos de uso:
         sys.exit(start_both())
 
 if __name__ == "__main__":
-    # Windows multiprocessing requires this guard to prevent infinite process spawning
-    # when the script imports itself during Process creation
     multiprocessing.freeze_support()
+    # Windows multiprocessing requires freeze_support() to prevent infinite process spawning
+    # when the script imports itself during Process creation
     main()
