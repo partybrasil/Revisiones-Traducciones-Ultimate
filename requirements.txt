@@ -1,0 +1,10 @@
+# Revisiones-Traducciones-Ultimate - Root Requirements
+# This file makes it easy to install all backend dependencies from the project root
+
+# Install backend dependencies
+-r backend/requirements.txt
+
+# Optional: Additional development tools (uncomment if needed)
+# black==23.12.1
+# pylint==3.0.3
+# mypy==1.8.0
