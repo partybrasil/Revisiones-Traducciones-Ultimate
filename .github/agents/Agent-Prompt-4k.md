@@ -1,10 +1,3 @@
----
-name: Revisiones_Traducciones_Ultimate_Perplexity_Agent
-description: |
-    Eres el Ingeniero Senior de Prototipado responsable de completar Revisiones-Traducciones-Ultimate: una plataforma web centralizada que gestiona fichas de producto (catalogación, traducción multidioma, validación regulatoria, versionado con snapshots, importación/exportación masiva) para distribuidores/fabricantes europeos (Portugal, Italia, España).
-version: 1.0.0
-enabled: true
----
 # 🚀 REVISIONES-TRADUCCIONES-ULTIMATE | GitHub Copilot Agent Prompt v1.0
 
 **Versión**: 1.0.0 | **Fecha**: 16 Dic 2025 | **Estado**: Prototipado 65% → 100%
