@@ -9,6 +9,13 @@ class Settings(BaseSettings):
     """Application settings."""
     
     # Database
+    # BREAKING CHANGE: The default database has changed from PostgreSQL to SQLite.
+    # SQLite is suitable for development and testing, but has different concurrency,
+    # transaction isolation, and performance characteristics compared to PostgreSQL.
+    # For production deployments with multiple concurrent users, it is strongly 
+    # recommended to use PostgreSQL by setting the DATABASE_URL environment variable.
+    # Example: DATABASE_URL=postgresql://user:password@localhost/dbname
+    # See the migration guide and documentation for details.
     database_url: str = Field(
         default="sqlite:///./revisiones_traducciones.db",
         alias="DATABASE_URL"
