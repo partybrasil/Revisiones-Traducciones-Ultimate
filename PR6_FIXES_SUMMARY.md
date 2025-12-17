@@ -13,17 +13,20 @@ All 17 review comments have been addressed with minimal, surgical changes to ens
 ### 1. Windows Multiprocessing Guard ✅
 **Issue**: Multiprocessing on Windows requires a guard to prevent infinite process spawning when the script imports itself.
 
-**Fix**: Added `if __name__ == "__main__":` guard with `multiprocessing.freeze_support()` at the bottom of `launcher.py`:
+**Fix**: Added `multiprocessing.freeze_support()` call at the bottom of `launcher.py` within the `if __name__ == "__main__":` guard. The multiprocessing module is imported at the module level (line 11) for consistency:
 ```python
+# At top of file (line 11)
+import multiprocessing
+
+# At bottom of file
 if __name__ == "__main__":
-    # Windows multiprocessing requires this guard to prevent infinite process spawning
-    # when the script imports itself during Process creation
-    import multiprocessing
     multiprocessing.freeze_support()
+    # Windows multiprocessing requires freeze_support() to prevent infinite process spawning
+    # when the script imports itself during Process creation
     main()
 ```
 
-**Files Changed**: `launcher.py` (line ~545)
+**Files Changed**: `launcher.py` (lines 11, 604-608)
 
 ---
 

@@ -123,7 +123,6 @@ def check_and_init_database():
             # Handle special cases
             if db_file == ":memory:":
                 print(f"{Color.GREEN}✓ Usando base de datos SQLite en memoria{Color.END}")
-                db_exists = True
             elif not db_file:
                 print(f"{Color.RED}❌ URL de base de datos SQLite inválida: {db_url}{Color.END}")
                 return False
@@ -132,9 +131,7 @@ def check_and_init_database():
                 if not os.path.isabs(db_file):
                     db_file = os.path.join(os.getcwd(), db_file)
                 
-                db_exists = os.path.exists(db_file)
-                
-                if not db_exists:
+                if not os.path.exists(db_file):
                     print(f"{Color.YELLOW}⚠ Base de datos no existe: {db_file}{Color.END}")
                     print(f"{Color.BLUE}📦 Creando nueva base de datos...{Color.END}")
         
@@ -157,7 +154,6 @@ def check_and_init_database():
                     print(f"{Color.GREEN}✓ Tablas de base de datos creadas{Color.END}")
                     
                     # Check if running in interactive environment
-                    import sys
                     if sys.stdin.isatty():
                         # Ask if user wants to load sample data
                         print(f"\n{Color.YELLOW}¿Deseas cargar datos de ejemplo? (s/n): {Color.END}", end="")
@@ -333,7 +329,7 @@ def start_both():
         ]
         try:
             subprocess.run(cmd, cwd=backend_dir)
-        except FileNotFoundError as e:
+        except FileNotFoundError:
             print(f"{Color.RED}❌ Error: No se encontró 'uvicorn'. Asegúrate de que las dependencias estén instaladas.{Color.END}")
             print(f"{Color.YELLOW}Ejecuta: pip install -r backend/requirements.txt{Color.END}")
         except Exception as e:
@@ -354,8 +350,9 @@ def start_both():
                     if response.status_code == 200:
                         print(f"{Color.GREEN}✓ Backend está listo{Color.END}")
                         break
-                except requests.RequestException:
+                except Exception:
                     # Connection failed, backend not ready yet
+                    # Using general Exception to handle both RequestException and AttributeError
                     pass
                 time.sleep(1)
             else:
@@ -372,7 +369,7 @@ def start_both():
         except Exception as e:
             print(f"{Color.RED}❌ Error ejecutando frontend: {e}{Color.END}")
     
-    # Create processes - Windows requires this to be inside main guard
+    # Create processes
     backend_process = multiprocessing.Process(target=run_backend, name="Backend")
     frontend_process = multiprocessing.Process(target=run_frontend, name="Frontend")
     

@@ -23,9 +23,15 @@ if settings.database_url.startswith("sqlite"):
     from sqlalchemy import event
     @event.listens_for(engine, "connect")
     def set_sqlite_pragma(dbapi_conn, connection_record):
-        cursor = dbapi_conn.cursor()
-        cursor.execute("PRAGMA journal_mode=WAL")
-        cursor.close()
+        try:
+            cursor = dbapi_conn.cursor()
+            cursor.execute("PRAGMA journal_mode=WAL")
+            cursor.close()
+        except Exception as e:
+            # WAL mode may fail on read-only or networked filesystems
+            # Log the error but don't fail the connection
+            import logging
+            logging.warning(f"Could not enable WAL mode for SQLite: {e}")
 else:
     # PostgreSQL or other databases
     engine = create_engine(
